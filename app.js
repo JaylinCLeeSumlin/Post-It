@@ -22,14 +22,16 @@ app.use(cookieParser())
 // __dirname = reference to current directory aka root directory
 app.use(express.static(path.join(__dirname, 'public')))
 
-var home = require("./public/html/index.html")
-app.use("/", home)
+// QUESTION: how do I get / to go to the home page?
+app.get("/", (req, res) => {
+    res.send("./public/html/index.html")
+})
 
 var auth_router = require("./routes/user_router")
 // Use any route that starts with 'auth' to complete request. Redirects all routes that begin with auth
 app.use("/auth", auth_router)
 
-var task_router = require("./task_router")
+var task_router = require("./routes/task_router")
 app.use("/task", task_router)
 
 
