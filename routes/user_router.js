@@ -1,22 +1,20 @@
 var express = require("express")
-
 var router = express.Router()
 
-let users = new Map();
+const { addUser } = require("../database/dbcon")
+
 
 // slash corresponds to slash that comes AFTER route stated in app.ja
-router.get("/", (req, res) => {
+router.post("/user", (req, res) => {
     
-    auth_form =`
-        <form action="/auth" method="POST">
-            <input type="text" name="username" placeholder="Type your username">
-            <br>
-            <input type="text" name="password">
-            <input type="submit" name="submitBtn">
-        </form>
-    `
+    const { name, email, password } = req.body
     
-    res.send(auth_form)
+    try{
+        const user = addUser(name, email, password)
+        res.json({ user_id: user.user_id })
+    } catch (err) {
+        res.status(500).json({ err: "Error adding user"})
+    }
 })
 
 router.post("/", (req, res) => {   
