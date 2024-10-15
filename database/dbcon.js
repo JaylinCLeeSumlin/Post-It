@@ -54,7 +54,7 @@ async function addTask(user_id, title, due_date, start_time, end_time, descripti
 }
 
 // Example usage
-addTask(1, 'Complete report', '2024-10-10', '09:00', '11:00', 'Finish the monthly report', 2, 'Office', 'pending');
+// addTask(1, 'Complete report', '2024-10-10', '09:00', '11:00', 'Finish the monthly report', 2, 'Office', 'pending');
 
 async function getTasksByUser(user_id) {
     const query = `
@@ -71,7 +71,7 @@ async function getTasksByUser(user_id) {
 }
 
 // Example usage
-getTasksByUser(1);
+// getTasksByUser(1);
 
 async function updateTaskStatus(task_id, new_status) {
     const query = `
@@ -92,7 +92,7 @@ async function updateTaskStatus(task_id, new_status) {
 }
 
 // Example usage
-updateTaskStatus(1, 'completed');
+// updateTaskStatus(1, 'completed');
 
 async function deleteTask(task_id) {
     const query = `
@@ -118,4 +118,4 @@ module.exports = {
 }
 
 // Example usage
-deleteTask(1);
+// deleteTask(1);

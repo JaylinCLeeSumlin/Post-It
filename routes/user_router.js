@@ -5,13 +5,17 @@ const { addUser } = require("../database/dbcon")
 
 
 // slash corresponds to slash that comes AFTER route stated in app.ja
-router.post("/user", (req, res) => {
+router.post("/signup", (req, res) => {
     
-    const { name, email, password } = req.body
+    const { name, email, password , reqPassword} = req.body
     
+    if (password != reqPassword) {
+        res.status(400).json({ err: "Passwords to not match"})
+    }
+
     try{
         const user = addUser(name, email, password)
-        res.json({ user_id: user.user_id })
+        res.status(202).json({ user_id: user.user_id })
     } catch (err) {
         res.status(500).json({ err: "Error adding user"})
     }

@@ -24,12 +24,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // QUESTION: how do I get / to go to the home page?
 app.get("/", (req, res) => {
-    res.send("./public/html/index.html")
+    res.send("public/html/registration")
+    res.render("public/html/restration.html")
 })
 
-var auth_router = require("./routes/user_router")
+var user_router = require("./routes/user_router")
 // Use any route that starts with 'auth' to complete request. Redirects all routes that begin with auth
-app.use("/auth", auth_router)
+app.use("/user", user_router)
 
 var task_router = require("./routes/task_router")
 app.use("/task", task_router)
@@ -40,4 +41,4 @@ app.get("/about", (req, res) => {
     res.send('About us page <a href="/">Home Page</a>')
 })
 
-app.listen(3000)
+app.listen(5500)
