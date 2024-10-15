@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-image: url("/public/images/milad-fakurian-iFu2HILEng8-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    overflow-x: hidden; /* Merged overflow-x rule */
+}
+.bg-img{
+    height:100vh;
+    width:100vw;
+    object-fit:cover;
+    filter:brightness(0.6);
+    position:absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+}
+/* Calendar Styling */
+.calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.calendar-day-header, .calendar-day {
+    padding: 10px;
+    background-color: #f1f1f1;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.calendar-day:hover {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+.calendar-day ul {
+    list-style-type: none;
+    padding: 5px;
+}
+
+.calendar-day li {
+    font-size: 12px;
+    color: #ffeb3b; /* Yellow for tasks in progress */
+}
+
+.calendar-day {
+    font-size: 18px;
+}
+
+.monthYear {
+    text-align: center;
+    font-weight: 600;
+    width: 150px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.header button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    background-color: #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.header button:hover {
+    background-color: #ddd;
+}
+
+
+
+/* ############# SIDEBAR############*/
+
+aside .sidebar {
+    background: rgb(119, 82, 126);
+    display: flex;
+    flex-direction: column;
+    height: 86vh;
+    position: fixed;
+    top: 3rem;
+}
+
+aside h3 {
+    font-weight: 500;
+}
+
+aside .sidebar a {
+    display: flex;
+    color: var(--color-info-dark);
+    margin-left: 2rem;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+    height: 3.7rem;
+    transition: all 300ms ease;
+}
+
+aside .sidebar a span {
+    font-size: 1.6rem;
+    transition: all 300ms ease;
+}
+
+aside .sidebar a:last-child {
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+}
+
+aside .sidebar a.active {
+    background: var(--color-light);
+    color: var(--color-primary);
+    margin-left: 0;
+}
+
+aside .sidebar a.active:before {
+    content: "";
+    width: 6px;
+    height: 100%;
+    background: var(--color-primary);
+}
+
+aside .sidebar a.active span {
+    color: var(--color-primary);
+    margin-left: calc(1rem - 3px);
+}
+
+aside .sidebar a:hover {
+    color: var(--color-primary);
+}
+
+aside .sidebar a:hover span {
+    margin-left: 1rem;
+}
+
+#sidebar {
+    grid-area: sidebar;
+    height: 100%;
+    background-color: transparent;
+    overflow-y: auto;
+    transition: all 0.5s;
+    align-items:flex-start;
+}
+
+.sidebar-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.sidebar-brand {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.sidebar-list {
+    padding: 0;
+    margin-top: 15px;
+    list-style-type: none;
+}
+
+.sidebar-list-item {
+    padding: 20px;
+    font-size: 18px;
+}
+
+.sidebar-list-item:hover {
+    background-color: rgba(133, 150, 238, 0.61);
+    cursor: pointer;
+}
+
+.sidebar-list-item a {
+    text-decoration: none;
+    color: #964bc7;
+}
+
+.sidebar-responsive {
+    display: inline !important;
+    position: absolute;
+    z-index: 12 !important;
+}
+
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color:transparent;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+}
