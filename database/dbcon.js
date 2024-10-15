@@ -109,5 +109,13 @@ async function deleteTask(task_id) {
     }
 }
 
+module.exports = {
+    addUser,
+    addTask,
+    getTasksByUser,
+    updateTaskStatus,
+    deleteTask
+}
+
 // Example usage
 deleteTask(1);
