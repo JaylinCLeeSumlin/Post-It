@@ -6,6 +6,8 @@ var cookieParser = require("cookie-parser")
 const session = require("express-session")
 var path = require("path")
 
+app.set('view engine', 'ejs')
+
 // terminal (Git Bash) --> mktemp
 app.use(session({secret:"M88CYahP1OfTd6s6dCiq"}))
 
@@ -24,8 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // QUESTION: how do I get / to go to the home page?
 app.get("/", (req, res) => {
-    res.send("public/html/registration")
-    res.render("public/html/restration.html")
+    res.render("pages/registration")
 })
 
 var user_router = require("./routes/user_router")
