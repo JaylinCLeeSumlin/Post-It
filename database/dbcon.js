@@ -13,13 +13,13 @@ pool.connect()
     .catch(err => console.error("Connection error", err.stack));
 
 // Correctly using 'async' instead of 'sync'
-async function addUser(name, email) {
+async function addUser(name, email, password) {
     const query = `
-        INSERT INTO users (name, email)
-        VALUES ($1, $2)
+        INSERT INTO users (name, email, password)
+        VALUES ($1, $2, $3)
         RETURNING *;
     `;
-    const values = [name, email];
+    const values = [name, email, password];
 
     try {
         const res = await pool.query(query, values);

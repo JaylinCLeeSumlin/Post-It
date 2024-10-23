@@ -1,7 +1,7 @@
 var express = require("express")
 var router = express.Router()
 
-const { addUser } = require("../database/dbcon")
+const { addUser, getTasksByUser } = require("../database/dbcon")
 
 
 // slash corresponds to slash that comes AFTER route stated in app.ja
@@ -21,23 +21,17 @@ router.post("/signup", (req, res) => {
     }
 })
 
-router.post("/", (req, res) => {   
+router.get("/dashboard", (req, res) => {   
     
     // access post variables
-    let userName = req.body.username
-    let password = req.body.password
-
-    if (userName == "admin" && password=="password"){
-        req.session.isValidUser = true
-        req.session.userName = userName
-        res.send("Welcome " + userName)
-        // res.redirect("/user/profile")
-    }else{
-        req.session.isValidUser = false
-        res.redirect("/auth")
-    }
     
-    res.send("Got it!")
+    if (req.session.isValidUser) {
+        // get front-end requirements from db, put in to json object
+        data = getTasksByUser(req.session.user_id)
+        res.render("pages/dashboard", { user_data: data})
+    } else {
+        res.render("pages/login")
+    }
 })
 
 
