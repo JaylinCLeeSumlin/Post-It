@@ -2,10 +2,9 @@ var express = require("express")
 
 var router = express.Router()
 
-// slash corresponds to slash that comes AFTER route stated in app.js
-router.post("/task/create", (req, res) => {
+router.post("/create", (req, res) => {
     
-    const { user_id, title, category, due_date, priority } = req.body
+    const { user_id, title, category, due_date, priority, start_time, end_time, description, location, status } = req.body
 
     try{
         const task = addTask(user_id, title, category, due_date, priority, start_time, end_time, description, location, status)
