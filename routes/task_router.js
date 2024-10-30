@@ -14,4 +14,10 @@ router.post("/create", (req, res) => {
     }
 })
 
+router.put("/edit/:id", (req, res) => {
+    task_id = req.params.id
+    const { user_id, title, category, due_date, priority, start_time, end_time, description, location, status } = req.body
+
+})
+
 module.exports = router
