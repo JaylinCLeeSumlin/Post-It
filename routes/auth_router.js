@@ -1,3 +1,4 @@
+var crypto = require("crypto")
 var express = require("express")
 var router = express.Router()
 
@@ -21,6 +22,21 @@ router.post("/signup", (req, res) => {
     }
 
     try{
+        // encrypt password
+        password = crypto.createHash("md5").update(password).digest("hex")
+
+        if (email && password) {
+            dbUtil.userDOA.lookupUperByEmail(email, (err, data, arg) => {
+                if (err) {
+                    res.send("Error:", err)
+                } else if (!data) {
+                    res.send("Authentication failed")
+                    // res.redirect()
+                } else {
+                    console.log("Authentication successful")
+                }
+            })
+        }
         const user = addUser(name, email, password)
         res.status(202).json({ user_id: user.user_id })
     } catch (err) {
@@ -34,7 +50,8 @@ router.get("/login", (req, res) => {
 
     const { email, password } = req.body
 
-    if (req.session.isValidUser) {
+    password = crypto.createHash("md5").update(password).digest("hex")
+    if (req.session.isValidUser && password) {
         res.render("pages/dashboard")
     } else {
         res.render("pages/login")
