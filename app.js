@@ -4,7 +4,7 @@ var app = express ()
 var logger = require("morgan")
 var cookieParser = require("cookie-parser")
 const session = require("express-session")
-const { expires } = require("express-sessions/session/cookie")
+const { expires } = require("express-session/session/cookie")
 const { randomUID } = require("crypto")
 var path = require("path")
 

@@ -48,10 +48,10 @@ router.get("/login", (req, res) => {
 
     // Check if user is authenticated - user session variable
 
-    const { email, password } = req.body
+   //const { email, password } = req.body
 
-    password = crypto.createHash("md5").update(password).digest("hex")
-    if (req.session.isValidUser && password) {
+   // password = crypto.createHash("md5").update(password).digest("hex")
+    if (req.session.isValidUser ) {
         res.render("pages/dashboard")
     } else {
         res.render("pages/login")
@@ -59,23 +59,24 @@ router.get("/login", (req, res) => {
 })
 
 
-// router.post("/", (req, res) => {   
+router.post("/login", (req, res) => {   
     
-//     // access post variables
-//     let userName = req.body.username
-//     let password = req.body.password
+    // access post variables
+    let userName = req.body.username
+    let password = req.body.password
 
-//     if (userName == "admin" && password=="password"){
-//         req.session.isValidUser = true
-//         req.session.userName = userName
-//         res.send("Welcome " + userName)
-//         // res.redirect("/user/profile")
-//     }else{
-//         req.session.isValidUser = false
-//         res.redirect("/auth")
-//     }
+    console.log("Username:"+userName)
+    if (userName == "admin" && password=="password"){
+        req.session.isValidUser = true
+        req.session.userName = userName
+        res.send("Welcome " + userName)
+        // res.redirect("/user/profile")
+    }else{
+        req.session.isValidUser = false
+        res.redirect("/auth/login")
+    }
     
-//     res.send("Got it!")
-// })
+   
+})
 
 module.exports = router

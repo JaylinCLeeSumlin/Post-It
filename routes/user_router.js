@@ -30,11 +30,22 @@ router.get("/dashboard", (req, res) => {
         data = getTasksByUser(req.session.user_id)
         res.render("pages/dashboard", { user_data: data})
     } else {
-        res.render("pages/login")
+        res.redirect("/auth/login")
     }
 })
 
+router.get("/calendar",(req,res)=>{
+    
+    res.render("pages/calendar")
+})
 
+router.get('/dashboard2',(req,res)=>{
+    res.render("pages/dashboard")
+})
+
+router.get('/messager',(req,res)=>{
+    res.render("pages/messager")
+})
 /*
 views/partial
 sessions

@@ -47,7 +47,7 @@
 
         <div class="container">
             <h1> Register New Account </h1>
-            <form id="signupForm">
+            <form id="signupForm" action="/auth/signup">
                 <div class="form-group">
                     <label for="username"><b>Username</b></label>
                     <input type="text" id="username" name="username" required>
@@ -76,7 +76,7 @@
 
                 <div class="form-group">
                     <label for="confrimPassword"><b>Confrim Password </b> </label>
-                    <input type="password" id="confrimPassword" name="confirmPassword" required>
+                    <input type="password" id="confrimPassword" name="reqPassword" required>
                     <span id="confirmPasswordError" class="error"></span>
                     <button type="submit"> Sign-Up !</button>
                 </div>
