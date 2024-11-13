@@ -1,0 +1,230 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+    background-color:#4393a9;
+    background-size: cover;
+    background-position: center;
+    overflow-x: hidden; /* Merged overflow-x rule */
+
+}
+
+
+h1{
+    text-align: center;
+}
+label{
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    color:#e9c929;
+    font-weight: bold;
+
+}
+
+input{
+    display:block;
+    width:100%;
+    margin-bottom:20px;
+    padding:10px;
+    box-sizing:border-box;
+    border:1px solid #e3e2dd;
+    border-radius: 5px;
+}
+
+button {
+    padding:15px;
+    border-radius:10px;
+    margin-bottom: 15px;
+    margin-top:15px;
+    border: none;
+    color: white;
+    cursor:pointer;
+    width:100%;
+    font-size: 16px;
+    background-color:#4393a9;
+
+    
+}
+
+#signupForm{
+    background-color: rgb(112, 34, 133);
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+li{
+    color:white;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-main {
+    background-color: #ae35d7;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    transition: transform 0.2s;
+    width: 500px;
+    text-align: center;
+}
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color:transparent;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+}
+
+.bg-img{
+    height:100vh;
+    width:100vw;
+    object-fit:cover;
+    filter:brightness(0.6);
+    position:absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+}
+
+.material-icons-outlined {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    background-color:rgba(161, 78, 208, 0.888);
+    padding: 40px;
+    overflow-y: auto;
+    
+}
+
+header {
+    margin-bottom: 40px;
+}
+header .img{
+    background-position: cover;
+}
+header h1 {
+    font-size: 36px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.task-section {
+    margin-bottom: 40px;
+}
+
+.task-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#task-form {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#task-input, #category-select, #due-date, #priority-select {
+    padding: 40px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    flex-grow: 2;
+    font-size: 16px;
+    
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #cab216;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #cab216;
+}
+
+.task {
+    background-color: #cab216;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease;
+}
+
+.task.in-progress {
+    background-color: #3091b8;
+}
+
+.complete-btn {
+    background-color: #dfd445;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.progress-btn{
+    background-color: #47ced7;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.complete-btn:hover, .progress-btn:hover {
+    background-color: #aa96c9;
+}
+/* End of TASK */
+
