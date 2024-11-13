@@ -31,7 +31,7 @@ class User {
     }
 
     // Register a new user
-    async addUser() {
+    async addUser(cb) {
         try {
             const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [this.email]);
 
@@ -45,7 +45,8 @@ class User {
                 [this.name, this.email, hashedPassword]
             );
             this.user_id = result.rows[0].user_id;
-            return result.rows[0];
+            // return result.rows[0];
+            cb(results.rows[0])
         } catch (err) {
             console.error('Error adding user:', err);
             throw err;
