@@ -1,0 +1,320 @@
+:root {
+    --primary-bg-color: #4393a9;
+    --highlight-color: #dfd445;
+    --button-bg-color: #cab216;
+    --text-highlight-color: #e9c929;
+    --modal-bg-color: white;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+    background-color:var(--primary-bg-color);
+    background-size: cover;
+    background-position: center;
+    overflow-x: hidden; /* Merged overflow-x rule */
+
+}
+
+.user{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+h1{
+    text-align: center;
+}
+
+
+label{
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    color:#e9c929;
+    font-weight: bold;
+
+}
+
+.glow {
+    font-size: 80px;
+    color: #fff;
+    text-align: center;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+  
+@-webkit-keyframes glow {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    }
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+}
+
+/* Calendar Styling */
+.calendar{
+    display:flex;
+    background: var(--modal-bg-color);
+    width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    margin: 5px;
+    
+}
+
+.calendar-header, .calendar-nav {
+    display: flex;
+    align-items: center;
+    padding: 25px 30px 10px;
+    justify-content: space-between;
+}
+
+.calendar-nav span {
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 50%;
+    user-select: none;
+    color: #aeabab;
+    font-size: 1.9rem;
+}
+
+
+header .calendar-navigation button{
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 50%;
+    user-select: none;
+    color: #f4da13;
+    font-size: 1.9rem;
+}
+.calendar-nav span:last-child {
+    margin-right: -10px;
+}
+
+.calendar-nav span:hover {
+    background: #f2f2f2;
+}
+
+header .calendar-current-date {
+    font-weight: 500;
+    font-size: 1.45rem;
+}
+
+.calendar-body {
+    padding: 20px;
+}
+
+.calendar-body ul {
+    list-style: none;
+    flex-wrap: wrap;
+    display: flex;
+    text-align: center;
+}
+
+.calendar-body .calendar-weekdays {
+    display:flex;
+    justify-content:space-between;
+}
+
+.calendar-body li {
+    width: calc(100% / 7);
+    font-size: 1.07rem;
+    color: #de35e7;
+}
+
+.calendar-body .calendar-weekdays li {
+    cursor: default;
+    font-weight: 500;
+}
+
+.calendar-body .calendar-dates li {
+    margin-top: 30px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.calendar-dates li.inactive {
+    color: #aaa;
+}
+
+.calendar-dates li.active {
+    color: #fff;
+}
+
+.calendar-dates li::before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.calendar-dates li.active::before {
+    background: #6332c5;
+}
+
+.calendar-dates li:not(.active):hover::before {
+    background: #e4e1e1;
+}
+
+.calendar-prev{
+    background-color: #dfd445;
+}
+.calendar-next{
+    background-color: #dfd445;
+}
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .calendar {
+        width: 100%; /* Make it full-width on smaller screens */
+        margin: 0 10px; /* Add margin for mobile */
+    }
+
+    .calendar-body .calendar-weekdays li,
+    .calendar-body .calendar-dates li {
+        font-size: 0.9rem; /* Adjust font size for smaller screens */
+    }
+}
+
+.material-icons-outlined {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+
+}
+
+
+
+.modal-content {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Adds a subtle overlay effect */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/*
+.modal-content{
+    background-color:rgb(255, 255, 255);
+    margin:auto;
+    padding:10px 20px;
+    border:5px;
+    width: 40%;
+    border:none;
+    cursor: pointer;
+    transition:background-color 0.3s;
+}
+
+*/
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+button, .complete-btn, .progress-btn {
+    padding: 10px 20px;
+    background-color: var(--button-bg-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover, .complete-btn:hover, .progress-btn:hover {
+    background-color: #aa96c9; /* Adjust for a universal hover color */
+}
+
+
+.task-section {
+    margin-bottom: 40px;
+}
+
+.task-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#task-form {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#task-input, #category-select, #due-date, #priority-select {
+    padding: 40px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    flex-grow: 2;
+    font-size: 16px;
+    
+}
+
+
+
+
+.task.in-progress {
+    background-color: #3091b8;
+}
+
+

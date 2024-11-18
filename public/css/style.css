@@ -85,7 +85,7 @@ header h1 {
     margin-bottom: 20px;
 }
 
-#task-input, #category-select, #due-date, #priority-select {
+#title-input, #category-select, #due-date, #priority-select {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;

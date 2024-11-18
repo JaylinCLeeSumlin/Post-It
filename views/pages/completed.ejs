@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Completed Task </title>
+    <link rel="stylesheet" href="/public/css/style2.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="/public/images/POST!t (3).png" alt="logo" height="200" width="200" ></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/html/dashboard.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/public/html/task.html">All task</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/html/calender.html">Calender</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/html/completed.html"> Completed Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/html/registration.html"> LogIn / Create New Account </a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+    </nav>
+
+    
+    <main class="main-content">
+        <header>
+            <h1>Task Calendar</h1>
+        </header>
+
+        <section id="calendar" class="task-section">
+                
+            <div id="calendar-container"></div>
+        </section>
+
+        <header>
+            <h1>Completed Tasks</h1>
+        </header>
+
+        <section class="task-section">
+            <h2>Your Completed Tasks</h2>
+            <ul id="completed-task-list">
+                <!-- Completed tasks will be dynamically added here -->
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>POST !T &copy; 2024</p>
+    </footer>
+
+    <script src="../js/scripts.js"></script>
+    
+</body>
+</html>
