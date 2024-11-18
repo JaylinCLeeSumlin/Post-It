@@ -1,4 +1,6 @@
 var express = require("express")
+const Task = require("../database/Task")
+const User = require("../database/User")
 
 var router = express.Router()
 
