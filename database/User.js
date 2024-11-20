@@ -127,5 +127,6 @@ class User {
             throw err;
         }
 }
+}
 
 module.exports = User; // Export the User class
