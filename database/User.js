@@ -39,6 +39,14 @@ class User {
                 throw new Error('User with this email already exists.');
             }
 
+            // Check username uniqueness
+            const existingUsername = await pool.query('SELECT * FROM users WHERE name = $1', [this.name]);
+            if (existingUsername.rows.length > 0) {
+                throw new Error('User with this username already exists.');
+            }
+
+            //Validate and hash password
+            User.validatePassword(this.passowrd);
             const hashedPassword = await User.hashPassword(this.password);
             const result = await pool.query(
                 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
@@ -87,6 +95,25 @@ class User {
         }
     }
 
+     ///Retrieve User without using Userid
+     static async getUserByEmailOrUsername(identifier) {
+        try {
+            const result = await pool.query(
+                'SELECT user_id, email, name FROM users WHERE email = $1 OR name = $2',
+                [identifier, identifier]
+            );
+
+            if (result.rows.length === 0) {
+                throw new Error('User not found.');
+            }
+
+            return result.rows[0];
+        } catch (err) {
+            console.error('Error retrieving user:', err);
+            throw err;
+        }
+    }
+
     // Retrieve user profile by user_id
     static async getUserProfile(user_id) {
         try {
@@ -99,7 +126,7 @@ class User {
             console.error('Error retrieving user profile:', err);
             throw err;
         }
-    }
+}
 }
 
 module.exports = User; // Export the User class
