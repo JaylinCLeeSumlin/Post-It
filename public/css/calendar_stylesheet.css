@@ -187,6 +187,12 @@ header .calendar-current-date {
     background-color: #dfd445;
 }
 
+.user {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: auto;
+}
 
 
 
@@ -240,7 +246,7 @@ header .calendar-current-date {
     right: 0;
     bottom: 0;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5); /* Adds a subtle overlay effect */
+    background-color:white; /* Adds a subtle overlay effect */
     display: flex;
     align-items: center;
     justify-content: center;

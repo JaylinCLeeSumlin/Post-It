@@ -35,10 +35,15 @@ html {
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(231, 224, 224, 0.2);
+  box-shadow: 0 6px 10px 0 rgba(231, 224, 224, 0.2);
   margin: 8px;
+  padding: 10px;
+  transition:0.3s ;
+  border-radius: 5px;
 }
-
+.img{
+  border-radius: 5px 5px 0 0;
+}
 .about-section {
   padding: 80px;
   text-align: center;
@@ -104,4 +109,5 @@ html {
  
 .footer{
     color:white;
+    position: relative;
 }

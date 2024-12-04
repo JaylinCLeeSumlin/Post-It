@@ -46,6 +46,9 @@ router.get('/dashboard2',(req,res)=>{
 router.get('/messager',(req,res)=>{
     res.render("pages/messager")
 })
+router.get('/profile',(req,res)=>{
+    res.render('secure/profile')
+})
 /*
 views/partial
 sessions

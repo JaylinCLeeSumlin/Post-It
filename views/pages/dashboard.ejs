@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        
-
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-        <title> POST IT </title>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+        <%- include('../partials/head')  %>
         <link rel="stylesheet" href="/css/dashboard_stylesheet.css">
         
     </head>
@@ -20,14 +11,36 @@
 
         <div class="dashboard"><!--Dashboard-->
 
-            <section class="navigation"><!--navigation-->
-                <img src="/images/POST !t (3).png" alt="Side-bar logo" class="logo">
-                <div>
-                    <a href="/html/dashboard.html"> <span class="material-icons-outlined">dashboard </span></a>
-                    <a href="/html/task.html"> <span class="material-icons-outlined">add_task </span></a>
-                    <a href="/html/messages.html"> <span class="material-icons-outlined"> chat </span></a>
-                    <a href="./calendar.ejs"> <span class="material-icons-outlined"> calendar_month </span></a>  
-                    <a href="/secure/profile.ejs"> <span class="material-icons-outlined"> settings_suggest</span></a>
+            <section class="navigation navbar navbar-expand-lg navbar-dark">
+                <!--navigation-->
+                <a class="navbar-brand" href="/user/about"><img src="/images/POST !t (3).png" alt="logo"> </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav flex-column text-center">
+                        <li class="navi-item">
+                            <a class='nav-link'href="/user/dashboard2"> <span class="material-icons-outlined">dashboard </span> Dashboard</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/calendar"> <span class="material-icons-outlined">add_task </span> Add Task</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/message"> <span class="material-icons-outlined"> chat </span> Messages</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/calendar"> <span class="material-icons-outlined"> calendar_month </span> Calendar</a>  
+
+                        </li>
+                        <li class="nav-item">
+                            <a  class="nav-link" href="/user/profile"> <span class="material-icons-outlined"> settings_suggest</span> Settings</a>
+
+                        </li>
+                    </ul>
+          
                 </div>
                 <img src="/images/profile2.jpeg" alt="user-image" class="user">
             </section>
@@ -49,7 +62,7 @@
                 <div class="title">
                     <h1> My Task List </h1>
                     <form action="">
-                        <label for="task"> Sort By </label>
+                        <label id="task"> Sort By </label>
                         <select name="task" id="taskFilter">
                         <option value=""> ....</option>
                         <option value="recent"> Recent Task </option>
@@ -62,7 +75,7 @@
                     <div class="task" data-status="completed" title="Completed Tasks"> <!--Board 1 -->
                         <div class="category"></div>
                         <h2> Message Board </h2>
-                        <p>Open 5mins ago </p>
+                        
 
                         <ul class="activity">
                         <li> Inbox </li>
@@ -129,7 +142,7 @@
                         <div class="title">
                             <div class="category category_color1"></div>
                             <h2> Meeting for CyberSecurity Threat </h2>
-                            <p>by Sasha Moklow </p>
+                            <p>by Sasha M </p>
                             <span class="material-icons-outlined"> more_vert</span>
                         </div>
                     </div>
@@ -137,7 +150,7 @@
                         <div class="title">
                             <div class="category category_color4"></div>
                             <h2>Brand Meeting -- 2025 </h2>
-                            <p>by Ezekiel Arowolo</p>
+                            <p>by Ezekiel A</p>
                         </div>
                         <span class="material-icons-outlined">more_vert</span>
                     </div>
@@ -145,7 +158,7 @@
                         <div class="title">
                             <div class="category category_color2"></div>
                             <h2> Send off! </h2>
-                            <p>by Jayda Lou </p>
+                            <p>by Jayda L </p>
                         </div>
                         <span class="material-icons-outlined">more_vert</span>
                     </div>
@@ -160,10 +173,9 @@
 
 
         <footer>
-            <p>POST !T &copy; 2024</p>
+            <%- include('../partials/footer')  %>
         </footer>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
-        <script src="/dashboard.js"></script>
+        
     </body>
 </html>
