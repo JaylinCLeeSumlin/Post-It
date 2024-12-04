@@ -30,6 +30,26 @@ class User {
         return await bcrypt.compare(password, hash);
     }
 
+    // Add this method inside the User class
+    static validatePassword(password) {
+        if (password.length < 8) {
+        throw new Error('Password must be at least 8 characters long.');
+        }
+        if (!/[A-Z]/.test(password)) {
+        throw new Error('Password must contain at least one uppercase letter.');
+        }
+        if (!/[a-z]/.test(password)) {
+        throw new Error('Password must contain at least one lowercase letter.');
+        }
+        if (!/[0-9]/.test(password)) {
+        throw new Error('Password must contain at least one number.');
+        }
+        if (!/[\W_]/.test(password)) {
+        throw new Error('Password must contain at least one special character.');
+        }
+    }
+
+
     // Register a new user
     async addUser(cb) {
         try {
@@ -62,7 +82,7 @@ class User {
     }
 
     // Authenticate user by verifying email and password
-    static async authenticate(email, password) {
+    static async authenticate(email, password,cb) {
         try {
             const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
             if (result.rows.length === 0) {

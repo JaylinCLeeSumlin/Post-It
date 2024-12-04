@@ -1,6 +1,8 @@
 var crypto = require("crypto")
 var express = require("express")
 var router = express.Router()
+const Task = require("../database/Task")
+const User = require("../database/User")
 
 router.get("/signup", (req, res) => {
 
@@ -66,16 +68,18 @@ router.get("/login", (req, res) => {
 router.post("/login", (req, res) => {   
     
     // access post variables
-    let userName = req.body.username
+    let email = req.body.email
     let password = req.body.password
 
-    console.log("Username:"+userName)
-    if (userName == "admin" && password=="password"){
+    console.log("Email:"+email)
+
+    try {
+        authUser = User.authenticate(email, password)
         req.session.isValidUser = true
-        req.session.userName = userName
-        res.send("Welcome " + userName)
-        // res.redirect("/user/profile")
-    }else{
+        req.session.email = email
+        req.session.userID = authUser.user_id
+        res.redirect("/user/dashboard2")
+    } catch {
         req.session.isValidUser = false
         res.redirect("/auth/login")
     }
