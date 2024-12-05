@@ -53,20 +53,28 @@ class User {
     // Register a new user
     async addUser(cb) {
         try {
+            
             const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [this.email]);
 
             if (existingUser.rows.length > 0) {
-                throw new Error('User with this email already exists.');
+                // throw new Error('User with this email already exists.');
+                cb({"err": 'User with this username already exists.',"code":501})
+                return
             }
 
             // Check username uniqueness
-            const existingUsername = await pool.query('SELECT * FROM users WHERE name = $1', [this.name]);
-            if (existingUsername.rows.length > 0) {
-                throw new Error('User with this username already exists.');
-            }
+            // const existingUsername = await pool.query('SELECT * FROM users WHERE name = $1', [this.name]);
+            // if (existingUsername.rows.length > 0) {
+                // throw new Error('User with this username already exists.');
+            // }
 
             //Validate and hash password
-            User.validatePassword(this.passowrd);
+            // try{
+            //     User.validatePassword(this.password);
+            // }catch( err){
+            //     cb({"err": 'User with this username already exists.',"code":501})
+            // }
+            
             const hashedPassword = await User.hashPassword(this.password);
             const result = await pool.query(
                 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
@@ -74,7 +82,7 @@ class User {
             );
             this.user_id = result.rows[0].user_id;
             // return result.rows[0];
-            cb(results.rows[0])
+            cb({data:result.rows[0], code:100})
         } catch (err) {
             console.error('Error adding user:', err);
             throw err;
@@ -86,21 +94,18 @@ class User {
         try {
             const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
             if (result.rows.length === 0) {
-                throw new Error('User not found.');
+                cb( { err:500 })
             }
 
             const user = result.rows[0];
             const isPasswordValid = await User.comparePassword(password, user.password);
-            if (!isPasswordValid) {
-                throw new Error('Invalid credentials.');
-            }
-
+            
             // Generate JWT token
             const token = jwt.sign({ user_id: user.user_id, email: user.email }, secretKey, { expiresIn: '1h' });
-            return { token, user };
+            cb( { token:token, user:user });
         } catch (err) {
             console.error('Authentication error:', err);
-            throw err;
+            cb( { err:500 })
         }
     }
 

@@ -15,7 +15,11 @@
     <div class="sub-main">
         <h1> <img src="/images/POST !t (3).png"></h1>
         <h3> Enter Your Credentials </h3>
-
+        <% if (msg != undefined) { %>         
+            <div>
+               <h3> Message: <%= msg %></h3> 
+           </div>
+       <% } %>
 
         <form action="/auth/login" method="post">
             <label for="first">

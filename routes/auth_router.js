@@ -11,7 +11,7 @@ router.get("/signup", (req, res) => {
     if (req.session.isValidUser) {
         res.render("pages/dashboard")
     } else {
-        res.render("pages/registration")
+        res.render("pages/registration", {msg:undefined})
     }
 })
 
@@ -42,11 +42,22 @@ router.post("/signup", (req, res) => {
         var User = require("../database/User")
         const user = new User(null, email, password_hash,name)
         user.addUser((data)=> {
-            res.status(202).json({ user_id: user.user_id })
+            // res.status(202).json({ user_id: user.user_id })
+            msg = undefined
+            if (data.code == 501){
+                res.render("pages/registration",{msg:data.err})
+            }else if(data.code ==100){
+                res.render("pages/login", {msg:"Account Created Successfuly!"})
+            }else{
+                msg = "Registration Failed!"
+                res.render("pages/registration",{msg:msg})
+            }
+
         })
     } catch (err) {
         console.log(err)
-        res.status(500).json({ err: "Error adding user"})
+        // res.status(500).json({ err: "Error adding user"})
+        // res.render("pages/registration",{msg:err})
     }
 })
 
@@ -60,7 +71,7 @@ router.get("/login", (req, res) => {
     if (req.session.isValidUser ) {
         res.render("pages/dashboard")
     } else {
-        res.render("pages/login")
+        res.render("pages/login",{msg:undefined})
     }
 })
 
@@ -74,11 +85,21 @@ router.post("/login", (req, res) => {
     console.log("Email:"+email)
 
     try {
-        authUser = User.authenticate(email, password)
-        req.session.isValidUser = true
-        req.session.email = email
-        req.session.userID = authUser.user_id
-        res.redirect("/user/dashboard2")
+        User.authenticate(email, password, (data)=>{
+            if(data.err){
+                msg = undefined
+                req.session.isValidUser = false
+                res.render("pages/login",{msg:"Invalid user name or password "})
+        
+            }else if(data.token){
+                req.session.isValidUser = true
+                req.session.email = email
+                req.session.userID = authUser.user_id
+                res.redirect("/user/dashboard")
+            }
+        })
+        
+        
     } catch {
         req.session.isValidUser = false
         res.redirect("/auth/login")

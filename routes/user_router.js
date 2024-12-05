@@ -41,6 +41,7 @@ router.get("/calendar",(req,res)=>{
 })
 
 router.get('/dashboard2',(req,res)=>{
+    res.redirect("/user/dashboard")
     res.render("pages/dashboard")
 })
 
