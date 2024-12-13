@@ -90,35 +90,76 @@ class User {
     }
 
     // Authenticate user by verifying email and password
-    static async authenticate(email, password,cb) {
+    // static async authenticate(email, password,cb) {
+    //     try {
+    //         const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    //         if (result.rows.length === 0) {
+    //             cb( { err:500 })
+    //         }
+
+    //         const user = result.rows[0];
+    //         const isPasswordValid = await User.comparePassword(password, user.password);
+            
+    //         // Generate JWT token
+    //         const token = jwt.sign({ user_id: user.user_id, email: user.email }, secretKey, { expiresIn: '1h' });
+    //         cb( { token:token, user:user });
+    //     } catch (err) {
+    //         console.error('Authentication error:', err);
+    //         cb( { err:500 })
+    //     }
+    // }
+
+    // // Verify JWT token
+    // static verifyToken(token) {
+    //     try {
+    //         const decoded = jwt.verify(token, secretKey);
+    //         return decoded;
+    //     } catch (err) {
+    //         console.error('Token verification failed:', err);
+    //         return null;
+    //     }
+    // }
+
+    static async authenticate(email, password, cb) {
         try {
             const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    
             if (result.rows.length === 0) {
-                cb( { err:500 })
+                return cb(new Error('User not found.'), null);
             }
-
+    
             const user = result.rows[0];
-            const isPasswordValid = await User.comparePassword(password, user.password);
-            
+    
+            // Compare the input password hashed with MD5 if necessary
+            let isPasswordValid = false;
+            if (user.password.startsWith('$2b$')) {
+                // bcrypt hash
+                isPasswordValid = await bcrypt.compare(password, user.password);
+            } else {
+                // Legacy MD5 hash comparison
+                const hashedMD5 = User.hashMD5(password);
+                isPasswordValid = hashedMD5 === user.password;
+    
+                // If valid, rehash with bcrypt
+                if (isPasswordValid) {
+                    const newHashedPassword = await bcrypt.hash(password, 10);
+                    await pool.query('UPDATE users SET password = $1 WHERE email = $2', [newHashedPassword, email]);
+                }
+            }
+    
+            if (!isPasswordValid) {
+                return cb(new Error('Invalid credentials.'), null);
+            }
+    
             // Generate JWT token
             const token = jwt.sign({ user_id: user.user_id, email: user.email }, secretKey, { expiresIn: '1h' });
-            cb( { token:token, user:user });
+            cb(null, { token, user });
         } catch (err) {
             console.error('Authentication error:', err);
-            cb( { err:500 })
+            cb(err, null);
         }
     }
-
-    // Verify JWT token
-    static verifyToken(token) {
-        try {
-            const decoded = jwt.verify(token, secretKey);
-            return decoded;
-        } catch (err) {
-            console.error('Token verification failed:', err);
-            return null;
-        }
-    }
+    
 
      ///Retrieve User without using Userid
      static async getUserByEmailOrUsername(identifier) {
