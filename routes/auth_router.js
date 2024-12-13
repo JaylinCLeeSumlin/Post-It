@@ -1,6 +1,8 @@
 var crypto = require("crypto")
 var express = require("express")
 var router = express.Router()
+const Task = require("../database/Task")
+const User = require("../database/User")
 
 router.get("/signup", (req, res) => {
 
@@ -9,7 +11,7 @@ router.get("/signup", (req, res) => {
     if (req.session.isValidUser) {
         res.render("pages/dashboard")
     } else {
-        res.render("pages/registration")
+        res.render("pages/registration", {msg:undefined})
     }
 })
 
@@ -40,11 +42,22 @@ router.post("/signup", (req, res) => {
         var User = require("../database/User")
         const user = new User(null, email, password_hash,name)
         user.addUser((data)=> {
-            res.status(202).json({ user_id: user.user_id })
+            // res.status(202).json({ user_id: user.user_id })
+            msg = undefined
+            if (data.code == 501){
+                res.render("pages/registration",{msg:data.err})
+            }else if(data.code ==100){
+                res.render("pages/login", {msg:"Account Created Successfuly!"})
+            }else{
+                msg = "Registration Failed!"
+                res.render("pages/registration",{msg:msg})
+            }
+
         })
     } catch (err) {
         console.log(err)
-        res.status(500).json({ err: "Error adding user"})
+        // res.status(500).json({ err: "Error adding user"})
+        // res.render("pages/registration",{msg:err})
     }
 })
 
@@ -58,7 +71,7 @@ router.get("/login", (req, res) => {
     if (req.session.isValidUser ) {
         res.render("pages/dashboard")
     } else {
-        res.render("pages/login")
+        res.render("pages/login",{msg:undefined})
     }
 })
 
@@ -66,18 +79,30 @@ router.get("/login", (req, res) => {
 router.post("/login", (req, res) => {   
     
     // access post variables
-    let userName = req.body.username
+    let email = req.body.email
     let password = req.body.password
 
-    console.log("Username:"+userName)
-    if (userName == "admin" && password=="password"){
-        req.session.isValidUser = true
-        req.session.userName = userName
-        res.send("Welcome " + userName)
-        // res.redirect("/user/profile")
-    }else{
+    console.log("Email:"+email)
+
+    try {
+        User.authenticate(email, password, (data)=>{
+            if(data.err){
+                msg = undefined
+                req.session.isValidUser = false
+                res.render("pages/login",{msg:"Invalid user name or password "})
+        
+            }else if(data.token){
+                req.session.isValidUser = true
+                req.session.email = email
+                req.session.userID = User.user_id
+                res.redirect("pages/dashboard")
+            }
+        })
+        
+        
+    } catch {
         req.session.isValidUser = false
-        res.redirect("/auth/login")
+        res.redirect("pages/login")
     }
     
    

@@ -30,15 +30,51 @@ class User {
         return await bcrypt.compare(password, hash);
     }
 
+    // Add this method inside the User class
+    static validatePassword(password) {
+        if (password.length < 8) {
+        throw new Error('Password must be at least 8 characters long.');
+        }
+        if (!/[A-Z]/.test(password)) {
+        throw new Error('Password must contain at least one uppercase letter.');
+        }
+        if (!/[a-z]/.test(password)) {
+        throw new Error('Password must contain at least one lowercase letter.');
+        }
+        if (!/[0-9]/.test(password)) {
+        throw new Error('Password must contain at least one number.');
+        }
+        if (!/[\W_]/.test(password)) {
+        throw new Error('Password must contain at least one special character.');
+        }
+    }
+
+
     // Register a new user
     async addUser(cb) {
         try {
+            
             const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [this.email]);
 
             if (existingUser.rows.length > 0) {
-                throw new Error('User with this email already exists.');
+                // throw new Error('User with this email already exists.');
+                cb({"err": 'User with this username already exists.',"code":501})
+                return
             }
 
+            // Check username uniqueness
+            // const existingUsername = await pool.query('SELECT * FROM users WHERE name = $1', [this.name]);
+            // if (existingUsername.rows.length > 0) {
+                // throw new Error('User with this username already exists.');
+            // }
+
+            //Validate and hash password
+            // try{
+            //     User.validatePassword(this.password);
+            // }catch( err){
+            //     cb({"err": 'User with this username already exists.',"code":501})
+            // }
+            
             const hashedPassword = await User.hashPassword(this.password);
             const result = await pool.query(
                 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
@@ -46,7 +82,7 @@ class User {
             );
             this.user_id = result.rows[0].user_id;
             // return result.rows[0];
-            cb(results.rows[0])
+            cb({data:result.rows[0], code:100})
         } catch (err) {
             console.error('Error adding user:', err);
             throw err;
@@ -54,25 +90,22 @@ class User {
     }
 
     // Authenticate user by verifying email and password
-    static async authenticate(email, password) {
+    static async authenticate(email, password,cb) {
         try {
             const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
             if (result.rows.length === 0) {
-                throw new Error('User not found.');
+                cb( { err:500 })
             }
 
             const user = result.rows[0];
             const isPasswordValid = await User.comparePassword(password, user.password);
-            if (!isPasswordValid) {
-                throw new Error('Invalid credentials.');
-            }
-
+            
             // Generate JWT token
             const token = jwt.sign({ user_id: user.user_id, email: user.email }, secretKey, { expiresIn: '1h' });
-            return { token, user };
+            cb( { token:token, user:user });
         } catch (err) {
             console.error('Authentication error:', err);
-            throw err;
+            cb( { err:500 })
         }
     }
 
@@ -84,6 +117,25 @@ class User {
         } catch (err) {
             console.error('Token verification failed:', err);
             return null;
+        }
+    }
+
+     ///Retrieve User without using Userid
+     static async getUserByEmailOrUsername(identifier) {
+        try {
+            const result = await pool.query(
+                'SELECT user_id, email, name FROM users WHERE email = $1 OR name = $2',
+                [identifier, identifier]
+            );
+
+            if (result.rows.length === 0) {
+                throw new Error('User not found.');
+            }
+
+            return result.rows[0];
+        } catch (err) {
+            console.error('Error retrieving user:', err);
+            throw err;
         }
     }
 
@@ -99,7 +151,7 @@ class User {
             console.error('Error retrieving user profile:', err);
             throw err;
         }
-    }
+}
 }
 
 module.exports = User; // Export the User class

@@ -86,7 +86,7 @@ footer {
     padding: 20px;
     background-color:transparent;
     color: white;
-    position: fixed;
+    position: relative;
     bottom: 0;
     width: 100%;
 
@@ -228,3 +228,9 @@ button:hover {
 }
 /* End of TASK */
 
+.user {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: auto;
+}

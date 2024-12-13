@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // QUESTION: how do I get / to go to the home page?
 app.get("/", (req, res) => {
-    res.render("pages/registration")
+    res.render("pages/homepage")
 })
 
 var user_router = require("./routes/user_router")

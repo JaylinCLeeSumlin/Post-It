@@ -15,51 +15,101 @@ body {
     overflow-x: hidden; /* Merged overflow-x rule */
 
 }
-.container {
-  background-color: white ;
+.main-content {
+  background-color: rgb(240, 234, 160) ;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
+  height: 800px;
+  width:800px;
+  position: relative;
 }
 
-/* Darker chat container */
-.darker {
-  border-color: #ccc;
-  background-color: #9a17a9;
+.chat-messages{
+  list-style-type:none;
+  padding:0;
+  margin:0;
+}
+.chat-messages li{
+  margin:10px 0;
+  padding: 10px;
+  background-color: #4393a9;
+  border-radius: 8px;
+}
+
+#chat-section {
+  display: flex;
+  flex-direction: column;
+  height: 80vh; /* Adjust based on your design */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f947;
+  padding: 10px;
+}
+
+#chat-box {
+  flex: 1; /* Fills the available vertical space */
+  overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 10px; /* Add some space above the input */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#chat-input form {
+  display: flex;
+  align-items: center;
+}
+
+#message-input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#chat-input button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4393a9;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#chat-input button:hover {
+  background-color: #36788f;
 }
 
 
-/* Clear floats */
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
+.glow {
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
 }
 
-/* Style images */
-.container img {
-  float: left;
-  max-width: 60px;
-  width: 100%;
-  margin-right: 20px;
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+
+
+.footer{
+  color:white;
+  position: relative;
+}
+.user {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-}
-
-/* Style the right image */
-.container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
-
-/* Style time text */
-.time-right {
-  float: right;
-  color: #aaa;
-}
-
-/* Style time text */
-.time-left {
-  float: left;
-  color: #999;
+  margin-top: auto;
 }
