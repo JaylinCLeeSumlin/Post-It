@@ -27,7 +27,8 @@ router.get("/", (req, res) => {
                     result.push(t);
                 }
                 username = User.getUserProfile(userID)
-                res.render("/pages/dashboard", { "data": result, "userID": userID, "name": username })
+                // res.render("pages/dashboard")
+                res.render("pages/dashboard", { "data": result, "userID": userID, "name": username })
             }
         })
     } catch (error) {

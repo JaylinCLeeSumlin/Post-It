@@ -94,15 +94,15 @@ router.post("/login", (req, res) => {
             }else if(data.token){
                 req.session.isValidUser = true
                 req.session.email = email
-                req.session.userID = authUser.user_id
-                res.redirect("/user/dashboard")
+                req.session.userID = User.user_id
+                res.redirect("pages/dashboard")
             }
         })
         
         
     } catch {
         req.session.isValidUser = false
-        res.redirect("/auth/login")
+        res.redirect("pages/login")
     }
     
    
