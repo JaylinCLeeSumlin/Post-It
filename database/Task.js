@@ -78,23 +78,45 @@ class Task {
     }
 
     // Retrieve all tasks with tags for a specific user
-    static async getAllTasksWithTagsByUser(user_id) {
-        try {
-            const result = await pool.query(
-                `SELECT t.task_id, t.title, t.description, t.status, t.start_time, t.end_time, t.due_date, t.priority, t.location, tt.tag_id, tg.tag_name
-                 FROM tasks t
-                 LEFT JOIN task_tags tt ON t.task_id = tt.task_id
-                 LEFT JOIN tags tg ON tt.tag_id = tg.tag_id
-                 WHERE t.user_id = $1`,
-                [user_id]
-            );
-            return result.rows;
-        } catch (err) {
-            console.error('Error retrieving tasks with tags:', err);
-            throw err;
+
+    //static async getAllTasksWithTagsByUser(user_id) {
+        //try {
+            //const result = await pool.query(
+                //`SELECT t.task_id, t.title, t.description, t.status, t.start_time, t.end_time, t.due_date, t.priority, t.location, tt.tag_id, tg.tag_name
+                 //FROM tasks t
+                 //LEFT JOIN task_tags tt ON t.task_id = tt.task_id
+                 //LEFT JOIN tags tg ON tt.tag_id = tg.tag_id
+                 //WHERE t.user_id = $1`,
+                //[user_id]
+            //);
+            //return result.rows;
+        //} catch (err) {
+            //console.error('Error retrieving tasks with tags:', err);
+            //throw err;
+        //}
+    //}
+//}
+
+// Retrieve all tasks with tags for a specific user using a callback
+static getAllTasksWithTagsByUser(user_id, cb) {
+    pool.query(
+        `SELECT t.task_id, t.title, t.description, t.status, t.start_time, t.end_time, t.due_date, 
+                t.priority, t.location, tt.tag_id, tg.tag_name
+         FROM tasks t
+         LEFT JOIN task_tags tt ON t.task_id = tt.task_id
+         LEFT JOIN tags tg ON tt.tag_id = tg.tag_id
+         WHERE t.user_id = $1`,
+        [user_id],
+        (err, result) => {
+            if (err) {
+                console.error('Error retrieving tasks with tags:', err);
+                return cb(err, null); // Pass error to callback
+            }
+            cb(null, result.rows); // Pass results to callback
         }
-    }
+    )};
 }
+
 
 module.exports = Task; // Export the Task class
 
