@@ -234,3 +234,29 @@ button:hover {
   border-radius: 50%;
   margin-top: auto;
 }
+
+.form-group {
+    margin: 20px 0;
+}
+.password-hint {
+    margin-top: 10px;
+    font-size: 14px;
+}
+.password-hint ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+.password-hint li {
+    color: grey;
+}
+.password-hint li.valid {
+    color: green;
+}
+.error {
+    color: red;
+    font-size: 12px;
+}
+.password-strength {
+    margin-top: 10px;
+    font-weight: bold;
+}

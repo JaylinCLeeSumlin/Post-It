@@ -34,7 +34,36 @@
                 <button type="submit"> Go! </button>
             </div>
         </form>
-        <p> Not registered? 
+        <p> 
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"> Forgot Password </button>
+             
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title"> <h4> Forgot Paassword </h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="password-reset-form" action="/auth/signup" method="post">
+                                <div id="alert"></div>
+                                <label for="password"> Password </label>
+                                <input type="password" id="password"/>
+                                
+                                <label for="password-verfiy"> Re-type Password</label>
+                                <input type="password" id="password-verfiy"/>
+
+                                <button type="submit"> Reset Password </button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> Close </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            Not registered? 
             <button type="submit">
                 <a href="/auth/signup" style="text-decoration: none;">
                     Create A New Account 

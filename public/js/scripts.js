@@ -38,6 +38,64 @@ document.addEventListener('DOMContentLoaded', () => {
         mainContent.style.display = 'none';
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const passwordInput = document.getElementById('password');
+    const lengthHint = document.getElementById('length');
+    const uppercaseHint = document.getElementById('uppercase');
+    const lowercaseHint = document.getElementById('lowercase');
+    const numberHint = document.getElementById('number');
+    const specialHint = document.getElementById('special');
+    const passwordStrength = document.getElementById('passwordStrength');
+    const passwordError = document.getElementById('passwordError');
+
+    passwordInput.addEventListener('input', validatePassword);
+
+    function validatePassword() {
+        const password = passwordInput.value;
+
+        // Validation rules
+        const isLengthValid = password.length >= 8;
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecialChar = /[\W_]/.test(password);
+
+        // Update hints
+        toggleHint(lengthHint, isLengthValid);
+        toggleHint(uppercaseHint, hasUppercase);
+        toggleHint(lowercaseHint, hasLowercase);
+        toggleHint(numberHint, hasNumber);
+        toggleHint(specialHint, hasSpecialChar);
+
+        // Calculate password strength
+        const strength = [isLengthValid, hasUppercase, hasLowercase, hasNumber, hasSpecialChar]
+            .filter(valid => valid).length;
+
+        updateStrengthIndicator(strength);
+
+        // Final validation
+        if (strength === 5) {
+            passwordError.textContent = ''; // No error
+        } else {
+            passwordError.textContent = 'Password does not meet all requirements';
+        }
+    }
+
+    function toggleHint(element, isValid) {
+        if (isValid) {
+            element.classList.add('valid');
+        } else {
+            element.classList.remove('valid');
+        }
+    }
+
+    function updateStrengthIndicator(strength) {
+        const levels = ['Weak', 'Fair', 'Good', 'Strong', 'Very Strong'];
+        passwordStrength.textContent = `Strength: ${levels[strength - 1] || 'Weak'}`;
+        passwordStrength.style.color = ['red', 'orange', 'yellow', 'green', 'darkgreen'][strength - 1] || 'red';
+    }
+});
 document.addEventListener('DOMContentLoaded', () => {
     const taskForm = document.getElementById('task-form');
     const taskInput = document.getElementById('task-input');
@@ -361,4 +419,29 @@ document.addEventListener('DOMContentLoaded', () => {
         // Scroll to the latest message
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+});
+
+
+
+const tasks = [
+    { title: "Task 1", status: "In Progress", description: "Complete the project documentation." },
+    { title: "Task 2", status: "Pending", description: "Schedule a team meeting." },
+    { title: "Task 3", status: "Completed", description: "Update the website design." }
+];
+
+const taskListElement = document.querySelector('.task_list');
+
+tasks.forEach(task => {
+        const taskElement = document.createElement('div');
+        taskElement.className = 'task';
+        taskElement.innerHTML = `
+            <div class="category">
+                <h2>${task.title}</h2>
+                <p>Status: ${task.status}</p>
+            </div>
+            <ul class="activity">
+                <li>Description: ${task.description}</li>
+            </ul>
+        `;
+        taskListElement.appendChild(taskElement);
 });
