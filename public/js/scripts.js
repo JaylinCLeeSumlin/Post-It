@@ -420,3 +420,28 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 });
+
+
+
+const tasks = [
+    { title: "Task 1", status: "In Progress", description: "Complete the project documentation." },
+    { title: "Task 2", status: "Pending", description: "Schedule a team meeting." },
+    { title: "Task 3", status: "Completed", description: "Update the website design." }
+];
+
+const taskListElement = document.querySelector('.task_list');
+
+tasks.forEach(task => {
+        const taskElement = document.createElement('div');
+        taskElement.className = 'task';
+        taskElement.innerHTML = `
+            <div class="category">
+                <h2>${task.title}</h2>
+                <p>Status: ${task.status}</p>
+            </div>
+            <ul class="activity">
+                <li>Description: ${task.description}</li>
+            </ul>
+        `;
+        taskListElement.appendChild(taskElement);
+});
