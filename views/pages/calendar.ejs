@@ -2,110 +2,110 @@
 <html lang="en">
   <head>
     <%- include('../partials/head') %>
-    <title>Calendar </title>
+    <title>Calendar</title>
     <link rel="stylesheet" href="/css/calendar_stylesheet.css">
-    <link rel="stylesheet" href="/css/stylesheet.css">
-
+    
   </head>
   <body>
     <div class="container">
-
       <header>
-        <%- include('../partials/secure_header')  %>
+        <%- include('../partials/secure_header') %>
       </header>
     </div>
-
-    <!--Main Content -->
+    
+    <!-- Main Content -->
     <main class="main-content">
       <header>
-        <h1 class="glow">Task Calendar</h1>
+        <h3 class="glow">Task Calendar</h3>
       </header>
-      <section id="calendar" class="task-section">
-        <div class="calendar">
-          <header class="calendar-header">
-            <p class="calendar-current-date"></p>
-            <div class="calendar-navigation">
-              <span id="calendar-prev" class="material-icons-rounded">
-                Prev
-              </span>
-              <span id="calendar-next" class="material-icons-rounded"> Next
-              </span>
-            </div>
-          </header> 
     
-          <div class="calendar-body">
-            <ul class="calendar-weekdays">
-              <li>Sun</li>
-              <li>Mon</li>
-              <li>Tue</li>
-              <li>Wed</li>
-              <li>Thu</li>
-              <li>Fri</li>
-              <li>Sat</li>
-            </ul>
-            <ul class="calendar-dates"></ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="task-section">
-          <h2>Your Completed Tasks</h2>
-  
-      </section>
-
-
-     
-      <section id="tasks" class="task-section">
-        <h2> Task List </h2>
-        <div class="task-list">
-              <!-- Example task -->
-        </div>
-        <!-- Modal -->
-        <button class="task-modal" type="button" data-toggle="modal"> Create Task </button>
-        <div class="modal" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModal" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title"> New Task</h5>
-              </div>
-              <span class="close" onclick="closeModal()">&times;</span>
-              <div class="modal-body">
-                <form id="taskForm" action="">
-                  <label for="task-input"></label>
-                  <input type="text" id="task-input" placeholder="Task description..." required>
-                  <label for="category-select"></label>
-                  <select id="category-select">
-                    <option value="work">Work</option>
-                    <option value="personal">Personal</option>
-                    <option value="urgent">Urgent</option>
-                  </select>
-                  <label for="due-date"></label><input type="date" id="due-date" required>
-                  <label for="priority-select"></label>
-                  <select id="priority-select">
-                    <option value="high">High Priority</option>
-                    <option value="medium">Medium Priority</option>
-                    <option value="low">Low Priority</option>
-                  </select>
-                  
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-secondary"> Submit </button>
-              </div>
-            </div>
-          </div>
-        </div>
+    
+    
+      <!-- Calendar Section -->
+      <div id="calendar">
         
+        <div class="button-container-calendar">
+          <button id="previous" onclick="previous()">‹</button>
+          <h3 id="monthAndYear"></h3>
+          <button id="next" onclick="next()">›</button>
+        </div>
+        <table class="table-calendar" id="calendar" data-lang="en">
+          <thead id="thead-month"></thead>
+          <tbody id="calendar-body"></tbody>
+        </table>
+        <div class="footer-container-calendar">
+          <label for="month">Jump To:</label>
+          <select id="month" onchange="jump()">
+            <option value="0">Jan</option>
+            <option value="1">Feb</option>
+            <option value="2">Mar</option>
+            <option value="3">Apr</option>
+            <option value="4">May</option>
+            <option value="5">Jun</option>
+            <option value="6">Jul</option>
+            <option value="7">Aug</option>
+            <option value="8">Sep</option>
+            <option value="9">Oct</option>
+            <option value="10">Nov</option>
+            <option value="11">Dec</option>
+          </select>
+          <select id="year" onchange="jump()"></select>
+        </div>
+      </div>
+       <!-- Modal for Tasks -->
+      <section id="task" class="task-section">
+        <button class="task-modal" type="button" id="openModalBtn">Create Task</button>
+        <div class="modal fade" id="taskModal">
+          <div class="modal-content">
+            <span class="close" id="closeModalBtn" data-bs-dismiss="modal">&times;</span>
+            <h2>Create New Task/Event</h2>
+            <form id="taskForm">
+              <label for="taskTitle">Title:</label><br>
+              <input type="text" id="taskTitle" name="taskTitle" required><br><br>
+
+              <label for="taskDate">Date:</label><br>
+              <input type="date" id="taskDate" name="taskDate" required><br><br>
+
+              <label for="taskDescription">Description:</label><br>
+              <input type="text" id="taskDescription" name="taskDescription" required><br><br>
+
+              <label for="taskPriority">Priority:</label><br>
+              <select id="taskPriority" name="taskPriority" required>
+                  <option value="work">Work</option>
+                  <option value="personal">Personal</option>
+                  <option value="other">Other</option>
+              </select><br><br>
+
+              <button id="submit" onclick="addEvent()" data-bs-dismiss="modal">Submit</button>
+            </form>
+          </div>
+        </div>
       </section>
-
+      <div class="left">
+        <!-- Add Event Section -->
+        <div id="event-section">
+          <h3>Add Event</h3>
+          <input type="date" id="eventDate" class="event-date" placeholder="Select Date">
+          <input type="text" id="eventTitle" placeholder="Event Title">
+          <input type="text" id="eventDescription" class="event-description" placeholder="Event Description">
+          <button id="addEvent" onclick="addEvent()">Add</button>
+        </div>
+      
+    
+        <!-- Reminders Section -->
+        <div id="reminder-section">
+          <h3>Reminders</h3>
+          <ul id="reminderList">
+            <!-- Dynamic reminders will be added here -->
+          </ul>
+        </div>
+      </div>
     </main>
-
-  
+    
     <footer>
       <%- include('../partials/footer') %>
     </footer>
     
     <script src="/js/main.js"></script>
-    
   </body>
 </html>

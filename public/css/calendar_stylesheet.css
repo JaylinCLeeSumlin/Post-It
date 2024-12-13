@@ -54,137 +54,213 @@ label{
   
 @-webkit-keyframes glow {
     from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #a09b9e, 0 0 40px #646364, 0 0 50px #a09b9e, 0 0 60px #a09b9e, 0 0 70px #a09b9e;
     }
     to {
-      text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+      text-shadow: 0 0 20px #fff, 0 0 30px #646364, 0 0 40px #646364, 0 0 50px #646364, 0 0 60px #646364, 0 0 70px #646364, 0 0 80px #646364;
     }
 }
 
-/* Calendar Styling */
-.calendar{
-    display:flex;
+/* Container to hold calendar and task sections side by side */
+.container {
+    display: flex; /* Flexbox layout */
+    justify-content: space-between; /* Space between the sections */
+    align-items: flex-start; /* Align items to the top */
+    gap: 20px; /* Space between calendar and reminder sections */
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.main-content {
+    width: 90%; /* Ensure it doesn't occupy full width */
+    margin: 20px auto; /* Center the content with margin */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex; /* Flexbox for flexible layout */
+    flex-direction: column; /* Stack children vertically */
+    gap: 20px; /* Add spacing between children */
+}
+
+
+/* Calendar Section */
+#calendar {
+    flex:2;
     background: var(--modal-bg-color);
-    width: 800px;
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    margin: 5px;
-    
+    width: 100vw;
+    height:100vh;
+    max-width: 900px;
+   
 }
 
-.calendar-header, .calendar-nav {
+/* Calendar Header */
+.button-container-calendar {
     display: flex;
-    align-items: center;
-    padding: 25px 30px 10px;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.calendar-nav span {
-    height: 38px;
-    width: 38px;
-    margin: 0 1px;
-    cursor: pointer;
-    text-align: center;
-    line-height: 38px;
-    border-radius: 50%;
-    user-select: none;
-    color: #aeabab;
-    font-size: 1.9rem;
-}
-
-
-header .calendar-navigation button{
-    height: 38px;
-    width: 38px;
-    margin: 0 1px;
-    cursor: pointer;
-    text-align: center;
-    line-height: 38px;
-    border-radius: 50%;
-    user-select: none;
-    color: #f4da13;
-    font-size: 1.9rem;
-}
-.calendar-nav span:last-child {
-    margin-right: -10px;
-}
-
-.calendar-nav span:hover {
-    background: #f2f2f2;
-}
-
-header .calendar-current-date {
-    font-weight: 500;
-    font-size: 1.45rem;
-}
-
-.calendar-body {
-    padding: 20px;
-}
-
-.calendar-body ul {
-    list-style: none;
-    flex-wrap: wrap;
-    display: flex;
-    text-align: center;
-}
-
-.calendar-body .calendar-weekdays {
-    display:flex;
-    justify-content:space-between;
-}
-
-.calendar-body li {
-    width: calc(100% / 7);
-    font-size: 1.07rem;
-    color: #de35e7;
-}
-
-.calendar-body .calendar-weekdays li {
-    cursor: default;
+#monthAndYear {
+    font-size: 1.5rem;
     font-weight: 500;
 }
 
-.calendar-body .calendar-dates li {
-    margin-top: 30px;
+button {
+    background-color: var(--highlight-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #aa96c9;
+}
+
+/* Calendar Table Styling */
+.table-calendar {
+    width: 80px;
+    border-collapse: collapse;
     position: relative;
-    z-index: 1;
+}
+
+.table-calendar td,
+.table-calendar th {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1rem;
+}
+
+.table-calendar td {
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.table-calendar td:hover {
+    background-color: var(--highlight-color);
+}
+
+.date-picker.selected {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    outline: 1px dashed #00BCD4;
+}
+
+/* Date Picker Styling */
+.date-picker:nth-child(1) {
+    color: rgb(70, 214, 104); /* Sunday */
+}
+
+.date-picker:nth-child(6) {
+    color: rgb(217, 162, 21); /* Friday */
+}
+
+.date-picker:hover {
+    background-color: var(--highlight-color);
+    color: white;
+}
+
+/* Footer Container */
+.footer-container-calendar {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+/* Month/Year Selector */
+footer select {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333;
     cursor: pointer;
 }
 
-.calendar-dates li.inactive {
+footer select:focus {
+    outline: none;
+    border-color: var(--highlight-color);
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+}
+
+.close {
     color: #aaa;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.calendar-dates li.active {
-    color: #fff;
+.close:hover {
+    color: #000;
 }
 
-.calendar-dates li::before {
-    position: absolute;
-    content: "";
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+/* Task Form Styling */
+#taskForm {
+    display: flex;
+    flex-direction: column;
 }
 
-.calendar-dates li.active::before {
-    background: #6332c5;
+#taskForm label {
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
-.calendar-dates li:not(.active):hover::before {
-    background: #e4e1e1;
+#taskForm input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.calendar-prev{
-    background-color: #dfd445;
+#taskForm button {
+    background-color: var(--highlight-color);
+    padding: 12px;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
 }
-.calendar-next{
-    background-color: #dfd445;
+
+#taskForm button:hover {
+    background-color: #aa96c9;
 }
 
 .user {
@@ -208,6 +284,13 @@ header .calendar-current-date {
         font-size: 0.9rem; /* Adjust font size for smaller screens */
     }
 }
+
+@media (max-width: 600px) {
+    #task-input, #category-select, #due-date, #priority-select {
+        padding: 15px;
+    }
+}
+
 
 .material-icons-outlined {
     font-family: 'Material Icons';
@@ -234,36 +317,33 @@ header .calendar-current-date {
     font-feature-settings: 'liga';
 
 }
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 
 
 
 .modal-content {
-    display: none;
     position: fixed;
     z-index: 1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     padding: 20px;
-    background-color:white; /* Adds a subtle overlay effect */
+    background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-/*
-.modal-content{
-    background-color:rgb(255, 255, 255);
-    margin:auto;
-    padding:10px 20px;
-    border:5px;
-    width: 40%;
-    border:none;
-    cursor: pointer;
-    transition:background-color 0.3s;
+
 }
 
-*/
+
 .close {
     color: #aaa;
     float: right;
@@ -288,7 +368,7 @@ button, .complete-btn, .progress-btn {
 }
 
 button:hover, .complete-btn:hover, .progress-btn:hover {
-    background-color: #aa96c9; /* Adjust for a universal hover color */
+    background-color: #aa96c9;
 }
 
 
@@ -324,3 +404,241 @@ button:hover, .complete-btn:hover, .progress-btn:hover {
 }
 
 
+.event-tooltip {
+    position: absolute;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+    z-index: 10;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+.event-marker {
+    position: relative;
+}
+.event-marker:hover {
+    background-color: #f0f8ff; /* Light hover background */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--highlight-color);
+    border-radius: 10px;
+}
+
+
+/* Calendar container */
+.container-calendar {
+	background: #ffffff;
+	padding: 15px;
+	max-width: 900px;
+	margin: 0 auto;
+	overflow: auto;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: space-between;
+}
+
+/* Event section styling */
+#event-section {
+	padding: 10px;
+	background: #f5f5f5;
+	margin: 20px 0;
+	border: 1px solid #ccc;
+}
+
+.container-calendar #left h1 {
+	color: green;
+	text-align: center;
+	background-color: #f2f2f2;
+	margin: 0;
+	padding: 10px 0;
+}
+
+#event-section h3 {
+	color: green;
+	font-size: 18px;
+	margin: 0;
+}
+
+#event-section input[type="date"],
+#event-section input[type="text"] {
+	margin: 10px 0;
+	padding: 5px;
+	width: 80%;
+}
+
+#event-section button {
+	background: green;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.event-marker {
+	position: relative;
+}
+
+.event-marker::after {
+	content: '';
+	display: block;
+	width: 6px;
+	height: 6px;
+	background-color: red;
+	border-radius: 50%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+/* event tooltip styling */
+.event-tooltip {
+	position: absolute;
+	background-color: rgba(234, 232, 232, 0.763);
+	color: black;
+	padding: 10px;
+	border-radius: 4px;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: none;
+	transition: all 0.3s;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.event-marker:hover .event-tooltip {
+	display: block;
+}
+
+/* Reminder section styling */
+#reminder-section {
+	padding: 10px;
+	background: #f5f5f5;
+	margin: 20px 0;
+	border: 1px solid #ccc;
+}
+
+#reminder-section h3 {
+	color: green;
+	font-size: 18px;
+	margin: 0;
+}
+
+#reminderList {
+	list-style: none;
+	padding: 0;
+}
+
+#reminderList li {
+	margin: 5px 0;
+	font-size: 16px;
+}
+
+/* Style for the delete buttons */
+.delete-event {
+	background: rgb(237, 19, 19);
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	cursor: pointer;
+	margin-left: 10px;
+	align-items: right;
+}
+
+/* Buttons in the calendar */
+.button-container-calendar button {
+	cursor: pointer;
+	background: green;
+	color: #fff;
+	border: 1px solid green;
+	border-radius: 4px;
+	padding: 5px 10px;
+}
+
+/* Calendar table */
+.table-calendar {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table-calendar td,
+.table-calendar th {
+	padding: 5px;
+	border: 1px solid #e2e2e2;
+	text-align: center;
+	vertical-align: top;
+}
+
+/* Date picker */
+.date-picker.selected {
+	background-color: #f2f2f2;
+	font-weight: bold;
+	outline: 1px dashed #00BCD4;
+}
+
+.date-picker.selected span {
+	border-bottom: 2px solid currentColor;
+}
+
+/* Day-specific styling */
+.date-picker:nth-child(1) {
+	color: rgb(70, 214, 104);
+	/* Sunday */
+}
+
+.date-picker:nth-child(6) {
+	color: rgb(217, 162, 21);
+	/* Friday */
+}
+
+/* Hover effect for date cells */
+.date-picker:hover {
+	background-color: green;
+	color: white;
+	cursor: pointer;
+}
+
+/* Header for month and year */
+#monthAndYear {
+	text-align: center;
+	margin-top: 0;
+}
+
+/* Navigation buttons */
+.button-container-calendar {
+	position: relative;
+	margin-bottom: 1em;
+	overflow: hidden;
+	clear: both;
+}
+
+#previous {
+	float: left;
+}
+
+#next {
+	float: right;
+}
+
+/* Footer styling */
+.footer-container-calendar {
+	margin-top: 1em;
+	border-top: 1px solid #dadada;
+	padding: 10px 0;
+}
+
+.footer-container-calendar select {
+	cursor: pointer;
+	background: #ffffff;
+	color: #585858;
+	border: 1px solid #bfc5c5;
+	border-radius: 3px;
+	padding: 5px 1em;
+}
