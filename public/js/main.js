@@ -209,3 +209,40 @@ function displayReminders() {
 		}
 	}
 }
+$(document).ready(function () {
+    $("#taskForm").on("submit", function (e) {
+        e.preventDefault();
+
+        const title = $("#taskTitle").val();
+        const description = $("#taskDescription").val();
+        const date = $("#taskDate").val();
+        const priority =$("taskPriority").val();
+
+        if (!title || !description || !date ||!priority) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        // Send task details to the backend
+        $.ajax({
+            url: "/addTask",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                title: title,
+                description: description,
+                date: date,
+                status: "Pending", // Default status
+                priority:priority,
+            }),
+            success: function (response) {
+                alert(response.message);
+                window.location.href = "/dashboard"; // Redirect to dashboard after adding task
+            },
+            error: function (err) {
+                console.error("Error adding task:", err);
+                alert("Failed to add task. Try again.");
+            },
+        });
+    });
+});

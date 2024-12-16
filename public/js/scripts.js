@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
         registerForm.style.display = 'block';
     });
 
-    goToLogin?.addEventListener('click', (e) => {
+    goToLogin.addEventListener('click', (e) => {
         e.preventDefault();
         registerForm.style.display = 'none';
         loginForm.style.display = 'block';
     });
 
     // Registration Logic
-    registerBtn?.addEventListener('click', (e) => {
+    registerBtn.addEventListener('click', (e) => {
         e.preventDefault();
         if (registerPassword.value !== confirmPassword.value) {
             alert('Passwords do not match!');
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Login Logic
-    loginBtn?.addEventListener('click', (e) => {
+    loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const user = JSON.parse(localStorage.getItem('user'));
         if (user && user.email === loginEmail.value && user.password === loginPassword.value) {
