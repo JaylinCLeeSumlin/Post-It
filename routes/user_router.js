@@ -48,7 +48,7 @@ router.get("/dashboard", (req, res) => {
                 res.render("pages/dashboard", { user_data: undefined, msg:"Faild to load dashboard!"})
             }else{
                 console.log(data)
-                res.render("pages/dashboard", { user_data: data})
+                res.render("pages/dashboard", { user_data: JSON.stringify(data) })
             }
         })
     } else {
@@ -74,8 +74,7 @@ router.get('/profile',(req,res)=>{
             if(err){
                 res.render("secure/profile", { user_data: undefined, msg:"Faild to load profile!"})
             }else{
-                console.log(data)
-                res.render("secure/profile", { user_data: data})
+                res.render("secure/profile", { user_data: JSON.stringify(data) })
             }
             
         })
