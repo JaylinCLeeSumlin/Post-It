@@ -22,6 +22,19 @@ router.post("/signup", (req, res) => {
     }
 })
 
+
+router.post('/dashboard',(req,res)=>{
+    const {title,description,data,priority} = req.body;
+    const newTask = {
+        title,
+        description,
+        date,
+        priority,
+    }
+    console.log('Task Recieved:', newTask)
+    res.json(newTask)
+})
+
 router.get("/dashboard", (req, res) => {   
     
     // access post variables

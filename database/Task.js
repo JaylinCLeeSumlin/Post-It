@@ -79,23 +79,23 @@ class Task {
     }
 
     // // Retrieve all tasks with tags for a specific user
-    // static async getAllTasksWithTagsByUser(user_id,cb) {
-    //     try {
-    //         console.log(user_id)
-    //         console.log(cb)
-    //         const result = await pool.query(
-    //             `SELECT t.task_id, t.title, t.description, t.status, t.start_time, t.end_time, t.due_date, t.priority, t.location
-    //              FROM tasks t
-    //              WHERE t.user_id = $1`,
-    //             [user_id]
-    //         );
-    //         console.log(result.rows)
-    //         cb(null,result.rows)
-    //     } catch (err) {
-    //         console.error('Error retrieving tasks with tags:', err);
-    //         throw err;
-    //     }
-    // }
+    static async getAllTasksWithTagsByUser(user_id,cb) {
+        try {
+             console.log(user_id)
+            console.log(cb)
+           const result = await pool.query(
+               `SELECT t.task_id, t.title, t.description, t.status, t.start_time, t.end_time, t.due_date, t.priority, t.location
+                FROM tasks t
+                WHERE t.user_id = $1`,
+               [user_id]
+            );
+            console.log(result.rows)
+            cb(null,result.rows)
+        } catch (err) {
+            console.error('Error retrieving tasks with tags:', err);
+            throw err;
+        }
+    }
 
     static async getTagsByTaskID(task_id,cb) {
         try {
