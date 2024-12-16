@@ -95,7 +95,7 @@ router.post("/login", (req, res) => {
                 req.session.isValidUser = true
                 req.session.email = email
                 req.session.userID = User.user_id
-                res.redirect("pages/dashboard")
+                res.redirect("/user/dashboard")
             }
         })
         
