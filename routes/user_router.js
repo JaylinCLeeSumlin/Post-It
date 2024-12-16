@@ -76,9 +76,7 @@ router.get('/profile',(req,res)=>{
             }else{
                 res.render("secure/profile", { user_data: JSON.stringify(data) })
             }
-            
         })
-        
      } else {
         res.redirect("/auth/login")
     }

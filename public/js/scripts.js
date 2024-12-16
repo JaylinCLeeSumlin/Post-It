@@ -46,17 +46,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Registration Logic
-    registerBtn.addEventListener('click', (e) => {
+    // registerBtn.addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     if (registerPassword.value !== confirmPassword.value) {
+    //         alert('Passwords do not match!');
+    //         return;
+    //     }
+    //     localStorage.setItem('user', JSON.stringify({ email: registerEmail.value, password: registerPassword.value }));
+    //     alert('Registration successful!');
+    //     registerForm.style.display = 'none';
+    //     loginForm.style.display = 'block';
+    // });
+
+    registerBtn.addEventListener('click', async (e) => {
         e.preventDefault();
+    
         if (registerPassword.value !== confirmPassword.value) {
             alert('Passwords do not match!');
             return;
         }
-        localStorage.setItem('user', JSON.stringify({ email: registerEmail.value, password: registerPassword.value }));
-        alert('Registration successful!');
-        registerForm.style.display = 'none';
-        loginForm.style.display = 'block';
+    
+        // Construct the registration data payload
+        const registrationData = {
+            email: registerEmail.value,
+            password: registerPassword.value,
+        };
+    
+        try {
+            // Send registration data to the server
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(registrationData),
+            });
+    
+            if (response.ok) {
+                // If the registration was successful, show a success message
+                alert('Registration successful!');
+                registerForm.style.display = 'none';
+                loginForm.style.display = 'block';
+            } else {
+                // If the server returns an error, show an error message
+                const errorData = await response.json();
+                alert(`Registration failed: ${errorData.message || 'Please try again.'}`);
+            }
+        } catch (error) {
+            // Handle network or unexpected errors
+            console.error('Error during registration:', error);
+            alert('An error occurred during registration. Please try again.');
+        }
     });
+    
 
     // Login Logic
     loginBtn.addEventListener('click', (e) => {
