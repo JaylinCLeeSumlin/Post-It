@@ -57,18 +57,13 @@ router.get("/dashboard", (req, res) => {
 })
 
 router.get("/calendar",(req,res)=>{
-    
     res.render("pages/calendar")
-})
-
-router.get('/dashboard2',(req,res)=>{
-    res.redirect("/user/dashboard")
-    res.render("pages/dashboard")
 })
 
 router.get('/messager',(req,res)=>{
     res.render("pages/messager")
 })
+
 router.get('/profile',(req,res)=>{
     // res.render('secure/profile')
 
