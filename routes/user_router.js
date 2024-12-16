@@ -48,7 +48,7 @@ router.get("/dashboard", (req, res) => {
                 res.render("pages/dashboard", { user_data: undefined, msg:"Faild to load dashboard!"})
             }else{
                 console.log(data)
-                res.render("pages/dashboard", { user_data: data})
+                res.render("pages/dashboard", { user_data: JSON.stringfy(data)})
             }
         })
     } else {

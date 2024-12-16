@@ -72,6 +72,19 @@
                     </form>
                 </div>
                 <div class="task_list"><!-- task list -->
+                    <% if (tasks.length === 0) { %>
+                        <p>No tasks available. Add some tasks from the calendar!</p>
+                    <% } else { %>
+                        <% tasks.forEach(task => { %>
+                            <div class="task">
+                                <h3><%= task.title %></h3>
+                                <p>Description: <%= task.description %></p>
+                                <p>Date: <%= task.date %></p>
+                                <p>Status: <%= task.status %></p>
+                                <p>Status: <%= task.priority %></p>
+                            </div>
+                        <% }) %>
+                    <% } %>
                     <div class="task" data-status="completed" title="Completed Tasks"> <!--Board 1 -->
                         <div class="category"></div>
                         <h2> Project Meeting </h2>
@@ -152,15 +165,14 @@
                             <h2>Brand Meeting -- 2025 </h2>
                             <p>by Ezekiel A</p>
                         </div>
-                        <span class="material-icons-outlined">more_vert</span>
-                    </div>
+                        
                     <div class="listing">
                         <div class="title">
                             <div class="category category_color2"></div>
                             <h2> Send off! </h2>
                             <p>by Jayda L </p>
                         </div>
-                        <span class="material-icons-outlined">more_vert</span>
+                        
                     </div>
                 </div>
                 
@@ -176,7 +188,10 @@
             <%- include('../partials/footer')  %>
         </footer>
         <script>
-            var user_data = <%= user_data%>;
+            var user_data = <%- user_data %>;
+            console.log(user_data);
+          
+            
         </script>
      
     </body>
