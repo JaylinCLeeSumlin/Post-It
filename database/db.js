@@ -14,5 +14,8 @@ const pool = new Db({
     port: process.env.DB_PORT,
 });
 
+console.log(JSON.stringify(pool))
+const process1 = require('process')
+console.log(JSON.stringify(process1.cwd()))
 
 module.exports = pool;
