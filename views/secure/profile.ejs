@@ -9,7 +9,14 @@
     <body>
         
         <%- include('../partials/secure_header')  %>
+        <% if(user_data==undefined){%>
+            <div class="alert alert-danger">
+                    <%= msg %>
+            </div>
+        <%} else{%>
 
+        
+        <%}%>
         <div class="container p0">
             <h1 class="glow">Settings</h1>
             <div class="row">
@@ -80,7 +87,7 @@
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label for="inputUsername">Username</label>
-                                                    <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                                                    <input type="text" class="form-control" id="inputUsername" placeholder="Username" value=<%='"'+ user_data.email+'"' %>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inputUsername">Biography</label>

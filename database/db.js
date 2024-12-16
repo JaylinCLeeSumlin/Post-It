@@ -6,7 +6,7 @@ const { Pool: Db } = require('pg');
 const pool = new Db({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
-    password: String(process.env.DB_PASS),
+    password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
 });
