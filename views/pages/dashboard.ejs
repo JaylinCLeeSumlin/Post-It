@@ -72,7 +72,7 @@
                     </form>
                 </div>
                 <div class="task_list"><!-- task list -->
-                    <% if (tasks.length === 0) { %>
+                    <% if (typeof task === 'undefined' || task.length === 0)  { %>
                         <p>No tasks available. Add some tasks from the calendar!</p>
                     <% } else { %>
                         <% tasks.forEach(task => { %>

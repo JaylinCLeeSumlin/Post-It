@@ -35,26 +35,22 @@ router.post("/signup", (req, res) => {
     //     res.json(newTask)
     // })
 
-router.get("/dashboard", (req, res) => {   
-    
-    // access post variables
-    
-    if (req.session.isValidUser) {
-        // get front-end requirements from db, put in to json object
-        data = Task.getAllTasksWithTagsByUser(req.session.user_id, (err, data) => {
-            // res.render("pages/dashboard", { user_data: data})
-
-            if(err){
-                res.render("pages/dashboard", { user_data: undefined, msg:"Faild to load dashboard!"})
-            }else{
-                console.log(data)
-                res.render("pages/dashboard", { user_data: JSON.stringify(data) })
+   
+router.get('/dashboard', async (req, res) => {
+        if (req.session.isValidUser) {
+            try {
+                // Fetch tasks for the user
+                const tasks = await Task.getAllTasksWithTagsByUser(req.session.user_id, cb);
+                res.render('pages/dashboard', { task: tasks }); // Pass tasks to the template
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+                res.render('pages/dashboard', { task: [] }); // Pass an empty array in case of an error
             }
-        })
-    } else {
-        res.redirect("/auth/login")
-    }
-})
+        } else {
+            res.redirect('/auth/login');
+        }
+});
+    
 
 router.get("/calendar",(req,res)=>{
     res.render("pages/calendar")
@@ -77,8 +73,8 @@ router.get('/profile',(req,res)=>{
                 res.render("secure/profile", { user_data: JSON.stringify(data) })
             }
         })
-     } else {
-        res.redirect("/auth/login")
+    // } else {
+    //     res.redirect("/auth/login")
     }
 })
 /*
